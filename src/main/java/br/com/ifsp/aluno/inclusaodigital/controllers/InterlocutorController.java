@@ -2,20 +2,23 @@ package br.com.ifsp.aluno.inclusaodigital.controllers;
 
 import br.com.ifsp.aluno.inclusaodigital.dtos.CreateInterlocutorRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.useCases.CreateInterlocutorUseCase;
+import br.com.ifsp.aluno.inclusaodigital.useCases.ListAllInterlocautorsUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/interlocutor")
 public class InterlocutorController {
-    final CreateInterlocutorUseCase createInterlocutorUseCase;
+    private final CreateInterlocutorUseCase createInterlocutorUseCase;
+    private final ListAllInterlocautorsUseCase listAllInterlocautorsUseCase;
 
-    public InterlocutorController(CreateInterlocutorUseCase createInterlocutorUseCase) {
+    public InterlocutorController(
+            CreateInterlocutorUseCase createInterlocutorUseCase,
+            ListAllInterlocautorsUseCase listAllInterlocautorsUseCase
+    ) {
         this.createInterlocutorUseCase = createInterlocutorUseCase;
+        this.listAllInterlocautorsUseCase = listAllInterlocautorsUseCase;
     }
 
     @PostMapping
@@ -26,5 +29,11 @@ public class InterlocutorController {
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> listAll() {
+        var interlocutors = this.listAllInterlocautorsUseCase.execute();
+        return ResponseEntity.ok().body(interlocutors);
     }
 }
