@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "iddbpass"
+      POSTGRES_USER: "iddbuser"
+      POSTGRES_DB: "inclusao-digital"
