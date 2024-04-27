@@ -24,6 +24,7 @@ public class InterlocutorEntity {
 
     @Column(nullable = false)
     private String name;
+    private String aboutMe;
 
     @Column(nullable = false, unique = true, updatable = false)
     private String email;

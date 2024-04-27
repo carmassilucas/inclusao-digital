@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public record CreateInterlocutorRequestDto(
         @NotNull(message = "Preencha o campo nome para cadastrar um interlocutor")
         String name,
+        String aboutMe,
 
         @Email(message = "Endereço de e-mail inválido")
         @NotNull(message = "Preencha o campo e-mail para cadastrar um interlocutor")

@@ -32,6 +32,7 @@ public class CreateInterlocutorUseCase {
 
         var interlocutor = InterlocutorEntity.builder()
                 .name(createInterlocutorRequestDto.name())
+                .aboutMe(createInterlocutorRequestDto.aboutMe())
                 .email(createInterlocutorRequestDto.email())
                 .password(passwordEncoded)
                 .dateOfBirth(createInterlocutorRequestDto.dateOfBirth())
