@@ -12,9 +12,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListAllInterlocutorsResponseDto {
+public class ListInterlocutorsByFilterResponseDto {
     private UUID uuid;
     private String name;
+    private String aboutMe;
     private LocalDate dateOfBirth;
     private String currentState;
     private String currentCity;
