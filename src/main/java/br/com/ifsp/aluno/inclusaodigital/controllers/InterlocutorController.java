@@ -1,7 +1,7 @@
 package br.com.ifsp.aluno.inclusaodigital.controllers;
 
 import br.com.ifsp.aluno.inclusaodigital.dtos.CreateInterlocutorRequestDto;
-import br.com.ifsp.aluno.inclusaodigital.dtos.ListInterlocutorsByFilterRequestDto;
+import br.com.ifsp.aluno.inclusaodigital.dtos.FindInterlocutorsByFilterRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.useCases.CreateInterlocutorUseCase;
 import br.com.ifsp.aluno.inclusaodigital.useCases.ListInterlocautorsByFilterUseCase;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,13 +36,13 @@ public class InterlocutorController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> listAll(
-            @Valid @RequestBody ListInterlocutorsByFilterRequestDto listInterlocutorsByFilterRequestDto,
+    public ResponseEntity<Object> findByFilter(
+            @Valid @RequestBody FindInterlocutorsByFilterRequestDto findInterlocutorsByFilterRequestDto,
             HttpServletRequest httpServletRequest
     ) {
         var uuid = UUID.fromString((String) httpServletRequest.getAttribute("interlocutor_id"));
         var interlocutors = this.listInterlocautorsByFilterUseCase.execute(
-                listInterlocutorsByFilterRequestDto, uuid
+                findInterlocutorsByFilterRequestDto, uuid
         );
 
         return ResponseEntity.ok().body(interlocutors);

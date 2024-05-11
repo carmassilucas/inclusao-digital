@@ -1,7 +1,7 @@
 package br.com.ifsp.aluno.inclusaodigital.useCases;
 
-import br.com.ifsp.aluno.inclusaodigital.dtos.ListInterlocutorsByFilterRequestDto;
-import br.com.ifsp.aluno.inclusaodigital.dtos.ListInterlocutorsByFilterResponseDto;
+import br.com.ifsp.aluno.inclusaodigital.dtos.FindInterlocutorsByFilterRequestDto;
+import br.com.ifsp.aluno.inclusaodigital.dtos.FindInterlocutorsByFilterResponseDto;
 import br.com.ifsp.aluno.inclusaodigital.repositories.InterlocutorRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +16,18 @@ public class ListInterlocautorsByFilterUseCase {
         this.interlocutorRepository = interlocutorRepository;
     }
 
-    public List<ListInterlocutorsByFilterResponseDto> execute(
-            ListInterlocutorsByFilterRequestDto listInterlocutorsByFilterRequestDto,
+    public List<FindInterlocutorsByFilterResponseDto> execute(
+            FindInterlocutorsByFilterRequestDto findInterlocutorsByFilterRequestDto,
             UUID uuid
     ) {
         var interlocutorsEntity = this.interlocutorRepository.findInterlocutorsByFilter(
-            listInterlocutorsByFilterRequestDto.state(),
-            listInterlocutorsByFilterRequestDto.city(),
+            findInterlocutorsByFilterRequestDto.state(),
+            findInterlocutorsByFilterRequestDto.city(),
             uuid
         );
 
         return interlocutorsEntity.stream().map(interlocutor ->
-                ListInterlocutorsByFilterResponseDto.builder()
+                FindInterlocutorsByFilterResponseDto.builder()
                         .uuid(interlocutor.getUuid())
                         .name(interlocutor.getName())
                         .dateOfBirth(interlocutor.getDateOfBirth())

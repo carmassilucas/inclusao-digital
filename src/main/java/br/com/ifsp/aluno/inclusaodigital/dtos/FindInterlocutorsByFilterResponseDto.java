@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListInterlocutorsByFilterResponseDto {
+public class FindInterlocutorsByFilterResponseDto {
     private UUID uuid;
     private String name;
     private String aboutMe;

@@ -2,7 +2,7 @@ package br.com.ifsp.aluno.inclusaodigital.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record ListInterlocutorsByFilterRequestDto(
+public record FindInterlocutorsByFilterRequestDto(
         @NotBlank(message = "Campo estado deve ser preenchido para buscar")
         String state,
 
