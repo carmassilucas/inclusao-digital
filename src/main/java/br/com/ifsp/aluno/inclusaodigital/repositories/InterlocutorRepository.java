@@ -12,8 +12,7 @@ import java.util.UUID;
 public interface InterlocutorRepository extends JpaRepository<InterlocutorEntity, UUID> {
     Optional<InterlocutorEntity> findByEmail(String email);
     @Query(
-            "select " +
-                    "itrlc " +
+            "select itrlc " +
             "from interlocutor itrlc " +
             "where itrlc.currentState ilike %:state% " +
                     "and itrlc.currentCity ilike %:city% " +
