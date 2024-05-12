@@ -3,9 +3,11 @@ package br.com.ifsp.aluno.inclusaodigital.controllers;
 import br.com.ifsp.aluno.inclusaodigital.dtos.CreateInterlocutorRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.dtos.FindInterlocutorsByFilterRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.dtos.UpdateInterlocutorRequestDto;
+import br.com.ifsp.aluno.inclusaodigital.dtos.UpdatePasswordInterlocutorRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.useCases.CreateInterlocutorUseCase;
 import br.com.ifsp.aluno.inclusaodigital.useCases.FindInterlocautorsByFilterUseCase;
 import br.com.ifsp.aluno.inclusaodigital.useCases.UpdateInterlocutorUseCase;
+import br.com.ifsp.aluno.inclusaodigital.useCases.UpdatePasswordInterlocutorUseCase;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +21,18 @@ public class InterlocutorController {
     private final CreateInterlocutorUseCase createInterlocutorUseCase;
     private final FindInterlocautorsByFilterUseCase findInterlocautorsByFilterUseCase;
     private final UpdateInterlocutorUseCase updateInterlocutorUseCase;
+    private final UpdatePasswordInterlocutorUseCase updatePasswordInterlocutorUseCase;
 
     public InterlocutorController(
             CreateInterlocutorUseCase createInterlocutorUseCase,
             FindInterlocautorsByFilterUseCase findInterlocautorsByFilterUseCase,
-            UpdateInterlocutorUseCase updateInterlocutorUseCase
+            UpdateInterlocutorUseCase updateInterlocutorUseCase,
+            UpdatePasswordInterlocutorUseCase updatePasswordInterlocutorUseCase
     ) {
         this.createInterlocutorUseCase = createInterlocutorUseCase;
         this.findInterlocautorsByFilterUseCase = findInterlocautorsByFilterUseCase;
         this.updateInterlocutorUseCase = updateInterlocutorUseCase;
+        this.updatePasswordInterlocutorUseCase = updatePasswordInterlocutorUseCase;
     }
 
     @PostMapping
@@ -65,5 +70,22 @@ public class InterlocutorController {
         );
 
         return ResponseEntity.ok().body(updatedInterlocutor);
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<Object> updatePassword(
+            @Valid @RequestBody UpdatePasswordInterlocutorRequestDto updatePasswordInterlocutorRequestDto,
+            HttpServletRequest httpServletRequest
+    ) {
+        var interlocutorId = UUID.fromString((String) httpServletRequest.getAttribute("interlocutor_id"));
+
+        try {
+            var interlocutor = this.updatePasswordInterlocutorUseCase.execute(
+                    updatePasswordInterlocutorRequestDto, interlocutorId
+            );
+            return ResponseEntity.ok().body(interlocutor);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
