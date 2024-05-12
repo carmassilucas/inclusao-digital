@@ -28,7 +28,7 @@ public class CreateInterlocutorUseCase {
                     throw new EmailAlreadyRegisteredException();
                 });
 
-        var passwordEncoded = passwordEncoder.encode(createInterlocutorRequestDto.password());
+        var passwordEncoded = passwordEncoder.encode(createInterlocutorRequestDto.password().trim());
 
         var interlocutor = InterlocutorEntity.builder()
                 .name(createInterlocutorRequestDto.name())
