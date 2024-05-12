@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ListInterlocautorsByFilterUseCase {
+public class FindInterlocautorsByFilterUseCase {
     private final InterlocutorRepository interlocutorRepository;
 
-    public ListInterlocautorsByFilterUseCase(InterlocutorRepository interlocutorRepository) {
+    public FindInterlocautorsByFilterUseCase(InterlocutorRepository interlocutorRepository) {
         this.interlocutorRepository = interlocutorRepository;
     }
 
