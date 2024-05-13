@@ -2,6 +2,7 @@ package br.com.ifsp.aluno.inclusaodigital.useCases;
 
 import br.com.ifsp.aluno.inclusaodigital.dtos.CreateInterlocutorRequestDto;
 import br.com.ifsp.aluno.inclusaodigital.entities.InterlocutorEntity;
+import br.com.ifsp.aluno.inclusaodigital.enumerations.ProfileEnum;
 import br.com.ifsp.aluno.inclusaodigital.exceptions.EmailAlreadyRegisteredException;
 import br.com.ifsp.aluno.inclusaodigital.repositories.InterlocutorRepository;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,7 @@ public class CreateInterlocutorUseCase {
                 .dateOfBirth(createInterlocutorRequestDto.dateOfBirth())
                 .currentState(createInterlocutorRequestDto.currentState())
                 .currentCity(createInterlocutorRequestDto.currentCity())
+                .profile(ProfileEnum.valueOf(createInterlocutorRequestDto.profile()))
                 .build();
 
         return this.interlocutorRepository.save(interlocutor);

@@ -1,5 +1,6 @@
 package br.com.ifsp.aluno.inclusaodigital.entities;
 
+import br.com.ifsp.aluno.inclusaodigital.enumerations.ProfileEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +42,10 @@ public class InterlocutorEntity {
     @Column(nullable = false)
     private String currentCity;
     private String profilePicture;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProfileEnum profile;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

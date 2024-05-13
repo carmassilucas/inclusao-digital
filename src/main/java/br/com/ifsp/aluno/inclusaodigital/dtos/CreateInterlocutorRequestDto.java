@@ -26,7 +26,10 @@ public record CreateInterlocutorRequestDto(
         String currentState,
 
         @NotNull(message = "Preencha o campo cidade atual para cadastrar um interlocutor")
-        String currentCity
+        String currentCity,
+
+        @NotNull
+        String profile
 ) {
 
 }
