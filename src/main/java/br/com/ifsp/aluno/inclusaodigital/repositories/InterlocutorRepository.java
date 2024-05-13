@@ -16,11 +16,13 @@ public interface InterlocutorRepository extends JpaRepository<InterlocutorEntity
             "from interlocutor itrlc " +
             "where itrlc.currentState ilike %:state% " +
                     "and itrlc.currentCity ilike %:city% " +
+                    "and itrlc.profile in :profiles " +
                     "and itrlc.uuid <> :uuid"
     )
     List<InterlocutorEntity> findInterlocutorsByFilter(
             @Param("state") String state,
             @Param("city") String city,
+            @Param("profiles") List<String> profiles,
             @Param("uuid") UUID uuid
     );
 }

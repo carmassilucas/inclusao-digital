@@ -21,15 +21,17 @@ public class FindInterlocautorsByFilterUseCase {
             UUID uuid
     ) {
         var interlocutorsEntity = this.interlocutorRepository.findInterlocutorsByFilter(
-            findInterlocutorsByFilterRequestDto.state(),
-            findInterlocutorsByFilterRequestDto.city(),
-            uuid
+                findInterlocutorsByFilterRequestDto.state(),
+                findInterlocutorsByFilterRequestDto.city(),
+                findInterlocutorsByFilterRequestDto.profiles(),
+                uuid
         );
 
         return interlocutorsEntity.stream().map(interlocutor ->
                 FindInterlocutorsByFilterResponseDto.builder()
                         .uuid(interlocutor.getUuid())
                         .name(interlocutor.getName())
+                        .aboutMe(interlocutor.getAboutMe())
                         .dateOfBirth(interlocutor.getDateOfBirth())
                         .currentState(interlocutor.getCurrentState())
                         .currentCity(interlocutor.getCurrentCity())
