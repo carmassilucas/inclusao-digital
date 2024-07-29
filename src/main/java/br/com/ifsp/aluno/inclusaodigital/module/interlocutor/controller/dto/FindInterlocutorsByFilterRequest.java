@@ -1,11 +1,11 @@
-package br.com.ifsp.aluno.inclusaodigital.dtos;
+package br.com.ifsp.aluno.inclusaodigital.module.interlocutor.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-import java.util.List;
+import java.util.Set;
 
-public record FindInterlocutorsByFilterRequestDto(
+public record FindInterlocutorsByFilterRequest(
         @NotBlank(message = "Campo estado deve ser preenchido para buscar")
         String state,
 
@@ -13,6 +13,6 @@ public record FindInterlocutorsByFilterRequestDto(
         String city,
 
         @NotEmpty
-        List<String> profiles
+        Set<@NotBlank String> interlocutorTypes
 ) {
 }

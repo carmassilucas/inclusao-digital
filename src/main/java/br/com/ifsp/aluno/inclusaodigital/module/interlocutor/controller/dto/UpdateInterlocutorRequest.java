@@ -1,8 +1,8 @@
-package br.com.ifsp.aluno.inclusaodigital.dtos;
+package br.com.ifsp.aluno.inclusaodigital.module.interlocutor.controller.dto;
 
 import java.time.LocalDate;
 
-public record UpdateInterlocutorRequestDto(
+public record UpdateInterlocutorRequest(
         String name,
         String aboutMe,
         LocalDate dateOfBirth,

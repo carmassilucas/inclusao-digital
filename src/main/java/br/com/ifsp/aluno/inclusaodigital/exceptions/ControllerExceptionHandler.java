@@ -1,28 +1,32 @@
 package br.com.ifsp.aluno.inclusaodigital.exceptions;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
-
-@ControllerAdvice
+@RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handlerMethodArgumentNotValidException(
-            MethodArgumentNotValidException methodArgumentNotValidException
-    ) {
-        final var fieldErros = new ArrayList<ExceptionHandlerResponseDto>();
-
-        methodArgumentNotValidException.getBindingResult().getFieldErrors().forEach(fieldError ->
-            fieldErros.add(new ExceptionHandlerResponseDto(
-                    fieldError.getDefaultMessage(),
-                    fieldError.getField()
-            ))
-        );
-
-        return ResponseEntity.badRequest().body(fieldErros);
+    @ExceptionHandler(CommonException.class)
+    public ProblemDetail handleCommonException(CommonException e) {
+        return e.toProblemDetail();
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        var fieldErros = e.getFieldErrors().stream().map(f ->
+                new InvalidParam(f.getField(), f.getDefaultMessage())
+        ).toList();
+
+        var pb = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+
+        pb.setTitle("Parâmetros Inválidos");
+        pb.setProperty("Os parâmetros da sua solicitação não são validados", fieldErros);
+
+        return pb;
+    }
+
+    private record InvalidParam(String name, String reason){}
 }

@@ -27,26 +27,27 @@ public class SecurityFilterInterlocutor extends OncePerRequestFilter {
             throws ServletException, IOException {
         String header = request.getHeader("Authorization");
 
-        if (request.getRequestURI().startsWith("/interlocutor")) {
-            if (header != null) {
-                var verifyer = JWT.require(Algorithm.HMAC256(authenticateAlgorithmSecret))
-                        .withIssuer(authenticateJwtIssuer)
-                        .build();
-
-                var token = verifyer.verify(header.replace("Bearer ", ""));
-
-                if (token == null) {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
-                }
-
-                request.setAttribute("interlocutor_id", token.getSubject());
-
-                SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(token.getSubject(), null, null)
-                );
-            }
+        if (header == null) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        var verifyer = JWT.require(Algorithm.HMAC256(authenticateAlgorithmSecret))
+                .withIssuer(authenticateJwtIssuer)
+                .build();
+
+        var token = verifyer.verify(header.replace("Bearer ", ""));
+
+        if (token == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
+        request.setAttribute("interlocutor_id", token.getSubject());
+
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(token.getSubject(), null, null)
+        );
 
         filterChain.doFilter(request, response);
     }

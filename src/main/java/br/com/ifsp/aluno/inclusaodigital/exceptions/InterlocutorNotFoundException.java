@@ -1,8 +1,17 @@
 package br.com.ifsp.aluno.inclusaodigital.exceptions;
 
-public class InterlocutorNotFoundException extends RuntimeException {
-    public InterlocutorNotFoundException() {
-        super("Usuário ou senha incorreto");
-    }
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 
+public class InterlocutorNotFoundException extends CommonException {
+
+    @Override
+    public ProblemDetail toProblemDetail() {
+        var pb = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+
+        pb.setTitle("Interlocutor Not Found");
+        pb.setDetail("interlocutor not found in the database");
+
+        return pb;
+    }
 }
