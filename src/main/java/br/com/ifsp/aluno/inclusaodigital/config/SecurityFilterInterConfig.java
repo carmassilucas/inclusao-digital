@@ -1,4 +1,4 @@
-package br.com.ifsp.aluno.inclusaodigital.security;
+package br.com.ifsp.aluno.inclusaodigital.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityFilterInterlocutor extends OncePerRequestFilter {
+public class SecurityFilterInterConfig extends OncePerRequestFilter {
     @Value("authentication.jwt.issuer")
     private String authenticateJwtIssuer;
 

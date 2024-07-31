@@ -1,4 +1,4 @@
-package br.com.ifsp.aluno.inclusaodigital.security;
+package br.com.ifsp.aluno.inclusaodigital.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +13,11 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 @Configuration
 @EnableMethodSecurity
-public class SecurityConfiguration {
-    private final SecurityFilterInterlocutor securityFilterInterlocutor;
+public class SecurityConfig {
+    private final SecurityFilterInterConfig securityFilterInterConfig;
 
-    public SecurityConfiguration(SecurityFilterInterlocutor securityFilterInterlocutor) {
-        this.securityFilterInterlocutor = securityFilterInterlocutor;
+    public SecurityConfig(SecurityFilterInterConfig securityFilterInterConfig) {
+        this.securityFilterInterConfig = securityFilterInterConfig;
     }
 
     @Bean
@@ -27,7 +27,7 @@ public class SecurityConfiguration {
                     authorization.requestMatchers(HttpMethod.POST, "/interlocutor").permitAll()
                             .requestMatchers(HttpMethod.POST, "/interlocutor/auth").permitAll()
                             .anyRequest().authenticated())
-                .addFilterBefore(securityFilterInterlocutor, AuthorizationFilter.class);
+                .addFilterBefore(securityFilterInterConfig, AuthorizationFilter.class);
 
         return http.build();
     }
