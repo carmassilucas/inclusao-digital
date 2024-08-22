@@ -3,6 +3,7 @@ CREATE TABLE tb_chat (
     name CHARACTER VARYING,
     description TEXT,
     profile_picture CHARACTER VARYING,
+    is_group BOOLEAN NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
 );
