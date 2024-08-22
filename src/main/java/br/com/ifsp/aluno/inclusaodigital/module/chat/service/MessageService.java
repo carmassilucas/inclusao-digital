@@ -5,6 +5,7 @@ import br.com.ifsp.aluno.inclusaodigital.module.chat.controller.dto.SendMessageR
 import br.com.ifsp.aluno.inclusaodigital.module.chat.entity.Message;
 import br.com.ifsp.aluno.inclusaodigital.module.chat.repository.MessageRepository;
 import br.com.ifsp.aluno.inclusaodigital.module.interlocutor.entity.Interlocutor;
+import br.com.ifsp.aluno.inclusaodigital.producer.MessageProducer;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,13 @@ public class MessageService {
 
     private final ChatService chatService;
     private final MessageRepository messageRepository;
+    private final MessageProducer messageProducer;
 
-    public MessageService(ChatService chatService, MessageRepository messageRepository) {
+    public MessageService(ChatService chatService, MessageRepository messageRepository,
+                          MessageProducer messageProducer) {
         this.chatService = chatService;
         this.messageRepository = messageRepository;
+        this.messageProducer = messageProducer;
     }
 
     public List<Message> getMessages(UUID chatId) {
@@ -41,6 +45,8 @@ public class MessageService {
         var message = new Message(payload.content(), replyTo, sender, chat);
 
         this.messageRepository.save(message);
+
+        this.messageProducer.publishMessage(message);
     }
 
     public void readMessages(List<UUID> payload) {
