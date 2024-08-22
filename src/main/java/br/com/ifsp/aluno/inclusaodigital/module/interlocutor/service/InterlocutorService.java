@@ -1,9 +1,9 @@
 package br.com.ifsp.aluno.inclusaodigital.module.interlocutor.service;
 
-import br.com.ifsp.aluno.inclusaodigital.exceptions.CommonException;
-import br.com.ifsp.aluno.inclusaodigital.exceptions.EmailAlreadyExistsException;
-import br.com.ifsp.aluno.inclusaodigital.exceptions.InterlocutorNotFoundException;
-import br.com.ifsp.aluno.inclusaodigital.exceptions.PasswordsNotMatchException;
+import br.com.ifsp.aluno.inclusaodigital.exception.CommonException;
+import br.com.ifsp.aluno.inclusaodigital.exception.EmailAlreadyExistsException;
+import br.com.ifsp.aluno.inclusaodigital.exception.InterlocutorNotFoundException;
+import br.com.ifsp.aluno.inclusaodigital.exception.PasswordsNotMatchException;
 import br.com.ifsp.aluno.inclusaodigital.module.interlocutor.controller.dto.*;
 import br.com.ifsp.aluno.inclusaodigital.module.interlocutor.entity.Interlocutor;
 import br.com.ifsp.aluno.inclusaodigital.module.interlocutor.repository.InterlocutorRepository;

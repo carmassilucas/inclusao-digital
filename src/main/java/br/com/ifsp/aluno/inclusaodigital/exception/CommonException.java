@@ -1,4 +1,4 @@
-package br.com.ifsp.aluno.inclusaodigital.exceptions;
+package br.com.ifsp.aluno.inclusaodigital.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

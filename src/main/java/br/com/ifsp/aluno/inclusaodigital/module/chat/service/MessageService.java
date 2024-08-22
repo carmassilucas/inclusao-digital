@@ -1,6 +1,6 @@
 package br.com.ifsp.aluno.inclusaodigital.module.chat.service;
 
-import br.com.ifsp.aluno.inclusaodigital.exceptions.MessageNotFoundException;
+import br.com.ifsp.aluno.inclusaodigital.exception.MessageNotFoundException;
 import br.com.ifsp.aluno.inclusaodigital.module.chat.controller.dto.SendMessageRequest;
 import br.com.ifsp.aluno.inclusaodigital.module.chat.entity.Message;
 import br.com.ifsp.aluno.inclusaodigital.module.chat.repository.MessageRepository;
