@@ -1,6 +1,5 @@
 package br.com.ifsp.aluno.inclusaodigital.module.chat.entity;
 
-import br.com.ifsp.aluno.inclusaodigital.module.interlocutor.entity.Interlocutor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,14 +32,14 @@ public class Chat implements Serializable {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "tb_interlocutor_chat",
-            joinColumns = @JoinColumn(name = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "interlocutor_id"))
-    private Set<Interlocutor> interlocutors = new HashSet<>();
+    @Column(name = "is_group", nullable = false, updatable = false)
+    private Boolean isGroup = false;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<InterlocutorChat> interlocutorsChat = new HashSet<>();
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
     private Set<Message> messages = new HashSet<>();
 
@@ -55,13 +54,14 @@ public class Chat implements Serializable {
     public Chat() {
     }
 
-    public Chat(UUID id, String name, String description, String profilePicture, Set<Interlocutor> interlocutors,
-                Set<Message> messages, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Chat(UUID id, String name, String description, String profilePicture, Boolean isGroup, Set<InterlocutorChat>
+            interlocutorsChat, Set<Message> messages, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.profilePicture = profilePicture;
-        this.interlocutors = interlocutors;
+        this.isGroup = isGroup;
+        this.interlocutorsChat = interlocutorsChat;
         this.messages = messages;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -99,12 +99,20 @@ public class Chat implements Serializable {
         this.profilePicture = profilePicture;
     }
 
-    public Set<Interlocutor> getInterlocutors() {
-        return interlocutors;
+    public Boolean getIsGroup() {
+        return isGroup;
     }
 
-    public void setInterlocutors(Set<Interlocutor> interlocutors) {
-        this.interlocutors = interlocutors;
+    public void setIsGroup(Boolean isGroup) {
+        this.isGroup = isGroup;
+    }
+
+    public Set<InterlocutorChat> getInterlocutorsChat() {
+        return interlocutorsChat;
+    }
+
+    public void setInterlocutorChats(Set<InterlocutorChat> interlocutorsChat) {
+        this.interlocutorsChat = interlocutorsChat;
     }
 
     public Set<Message> getMessages() {

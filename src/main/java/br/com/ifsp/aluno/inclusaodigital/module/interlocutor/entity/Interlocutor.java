@@ -1,6 +1,6 @@
 package br.com.ifsp.aluno.inclusaodigital.module.interlocutor.entity;
 
-import br.com.ifsp.aluno.inclusaodigital.module.chat.entity.Chat;
+import br.com.ifsp.aluno.inclusaodigital.module.chat.entity.InterlocutorChat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,7 +38,7 @@ public class Interlocutor implements Serializable {
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "interlocutor_type_id")
     private InterlocutorType interlocutorType;
 
@@ -54,9 +54,9 @@ public class Interlocutor implements Serializable {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToMany(mappedBy = "interlocutors", fetch = FetchType.LAZY)
-    private Set<Chat> chats = new HashSet<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "interlocutor", fetch = FetchType.LAZY)
+    private Set<InterlocutorChat> interlocutorChats = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -67,13 +67,11 @@ public class Interlocutor implements Serializable {
     private LocalDateTime updatedAt;
 
     public Interlocutor() {
-
     }
 
-    public Interlocutor(UUID id,String name, String aboutMe, String email, String password,
-                        InterlocutorType interlocutorType, LocalDate dateOfBirth, String currentState,
-                        String currentCity, String profilePicture, Set<Chat> chats, LocalDateTime createdAt,
-                        LocalDateTime updatedAt) {
+    public Interlocutor(UUID id, String name, String aboutMe, String email, String password, InterlocutorType interlocutorType,
+                        LocalDate dateOfBirth, String currentState, String currentCity, String profilePicture,
+                        Set<InterlocutorChat> interlocutorChats, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.aboutMe = aboutMe;
@@ -84,7 +82,7 @@ public class Interlocutor implements Serializable {
         this.currentState = currentState;
         this.currentCity = currentCity;
         this.profilePicture = profilePicture;
-        this.chats = chats;
+        this.interlocutorChats = interlocutorChats;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -180,12 +178,12 @@ public class Interlocutor implements Serializable {
         this.profilePicture = profilePicture;
     }
 
-    public Set<Chat> getChats() {
-        return chats;
+    public Set<InterlocutorChat> getInterlocutorChats() {
+        return interlocutorChats;
     }
 
-    public void setChats(Set<Chat> chats) {
-        this.chats = chats;
+    public void setInterlocutorChats(Set<InterlocutorChat> interlocutorChats) {
+        this.interlocutorChats = interlocutorChats;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -28,16 +28,16 @@ public class Message implements Serializable {
     private Boolean read = false;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "reply_message_id")
     private Message replyTo;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
     private Interlocutor sender;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_id")
     private Chat chat;
@@ -58,6 +58,13 @@ public class Message implements Serializable {
         this.sender = sender;
         this.chat = chat;
         this.createdAt = createdAt;
+    }
+
+    public Message(String content, Message replyTo, Interlocutor sender, Chat chat) {
+        this.content = content;
+        this.replyTo = replyTo;
+        this.sender = sender;
+        this.chat = chat;
     }
 
     public UUID getId() {
