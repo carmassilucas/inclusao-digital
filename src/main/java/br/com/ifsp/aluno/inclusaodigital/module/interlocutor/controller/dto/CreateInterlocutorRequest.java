@@ -16,7 +16,7 @@ public record CreateInterlocutorRequest(
         @NotNull LocalDate dateOfBirth,
         @NotNull String currentState,
         @NotNull String currentCity,
-        @NotNull InterlocutorType.Values intinterlocutorType
+        @NotNull InterlocutorType.Values interlocutorType
 ) {
         public Interlocutor toInterlocutor() {
                 return new Interlocutor(
@@ -26,7 +26,7 @@ public record CreateInterlocutorRequest(
                         dateOfBirth,
                         currentState,
                         currentCity,
-                        intinterlocutorType
+                        interlocutorType
                 );
         }
 }
