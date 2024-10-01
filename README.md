@@ -1,4 +1,4 @@
-# Inclusão Digital
+# Talk to Refugee
 
 <section>
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-%2304D361">
@@ -6,7 +6,7 @@
     <img alt="Version: 1.0" src="https://img.shields.io/badge/version-1.0-yellowgreen">
 </section>
 
-O Inclusão Digital é uma plataforma projetada para facilitar a integração de refugiados no Brasil, conectando-os com pessoas dispostas a oferecer ajuda. Em um cenário crescente de migrações forçadas devido a perseguições religiosas; raciais; políticas; guerras civis e graves violações de direitos humanos, o sistema visa superar barreiras culturais e linguísticas, por meio da comunicação eficaz entre refugiados e voluntários. O software oferece um chat em tempo real e uma interface intuitiva, desenvolvida para proporcionar uma experiência de usuário otimizada. Com o objetivo de auxiliar na adaptação e reintegração dos refugiados em suas novas comunidades.
+O Talk to Refugee é uma plataforma projetada para facilitar a integração de refugiados no Brasil, conectando-os com pessoas dispostas a oferecer ajuda. Em um cenário crescente de migrações forçadas devido a perseguições religiosas; raciais; políticas; guerras civis e graves violações de direitos humanos, o sistema visa superar barreiras culturais e linguísticas, por meio da comunicação eficaz entre refugiados e voluntários. O software oferece um chat em tempo real e uma interface intuitiva, desenvolvida para proporcionar uma experiência de usuário otimizada. Com o objetivo de auxiliar na adaptação e reintegração dos refugiados em suas novas comunidades.
 
 
 ## 🚀 Stack utilizada
@@ -32,7 +32,7 @@ A aplicação back-end é uma API Restful composta principalmente pela lingaguem
 
 Clone o projeto
 
-    git clone https://github.com/carmassilucas/inclusao-digital
+    git clone https://github.com/carmassilucas/t2r-backend
 
 Acesse a pasta Docker
 
